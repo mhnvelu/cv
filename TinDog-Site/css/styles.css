@@ -43,6 +43,7 @@ h3 {
 }
 
 /* Apply this container fluid only to Title section */
+/* Hierarchy selection : #title space .container-fluid */
 #title .container-fluid {
   padding: 3% 15% 7%;
 }
