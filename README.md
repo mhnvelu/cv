@@ -2,4 +2,5 @@
 # CSS-MySite			: Styled CV.
 # TinDog-Site			: Responsive website implemented with HTML, CSS and Bootstrap.
 # Dicee-Challenge-Site	: Implemented with HTML, CSS and JavaScript
-# DrumKit-Site			: Implemented with HTML, CSS and JavaScript			
+# DrumKit-Site			: Implemented with HTML, CSS and JavaScript
+# Memory-Game-Site		: Implemented with HTML, CSS, JavaScript and JQuery
