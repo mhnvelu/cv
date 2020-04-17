@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const encrypt = require("mongoose-encryption");
+const md5 = require("md5");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -21,19 +21,14 @@ mongoose.connect("mongodb://localhost:27017/userDB", {
 });
 
 // Level 1 authentication - using email id and password as plaintext
+// Level 2 authentication - using email id and password encrypted
+// Refer https://www.npmjs.com/package/mongoose-encryption
+// Level 3 authentication - using email id and password hashed
+// Refer https://www.npmjs.com/package/md5
 
 const userSchema = new mongoose.Schema({
     email: String,
     password: String
-});
-
-
-// Level 2 authentication - using email id and password encrypted
-// Refer https://www.npmjs.com/package/mongoose-encryption
-
-userSchema.plugin(encrypt, {
-    secret: process.env.SECRET,
-    encryptedFields: ['password']
 });
 
 const User = mongoose.model("User", userSchema);
@@ -53,7 +48,7 @@ app.get('/register', function (req, res) {
 app.post('/register', function (req, res) {
     const newUser = new User({
         email: req.body.username,
-        password: req.body.password
+        password: md5(req.body.password)
     });
     newUser.save(function (err) {
         if (err) {
@@ -72,7 +67,7 @@ app.get('/login', function (req, res) {
 app.post('/login', function (req, res) {
 
     const email = req.body.username;
-    const password = req.body.password;
+    const password = md5(req.body.password);
     User.findOne({
         email: email
     }, function (err, foundUser) {
